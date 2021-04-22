@@ -15,7 +15,8 @@
         android:theme="@style/Theme.TrendingRepos"
         android:fullBackupContent="@xml/backup_descriptor"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.TrendingRepoActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

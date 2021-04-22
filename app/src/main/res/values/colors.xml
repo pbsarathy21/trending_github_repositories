@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="mine_shaft">#2F3037</color>
+    <color name="science_blue">#0366D6</color>
+    <color name="athens_gray">#EFF0F5</color>
+    <color name="shark">#212121</color>
+
 </resources>

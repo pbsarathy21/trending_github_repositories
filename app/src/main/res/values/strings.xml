@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Trending Repos</string>
+    <string name="trending_repositories">Trending Repositories</string>
 </resources>
