@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="repository"
+            type="com.pbsarathy21.trendingrepos.data.models.Repository" />
+
+        <import type="android.graphics.Color" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,7 +21,7 @@
             android:layout_height="@dimen/_18sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:src="@drawable/sqaure"
+            android:src="@{repository.avatar, default=@drawable/sqaure}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +34,7 @@
             android:ellipsize="end"
             android:maxLength="50"
             android:singleLine="true"
-            android:text="@string/sample_author_name"
+            android:text="@{repository.author, default=@string/sample_author_name}"
             android:textColor="@color/scarpa_flow"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintBottom_toBottomOf="@id/avatar"
@@ -41,7 +50,7 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/sample_repo_name"
+            android:text="@{repository.name, default=@string/sample_repo_name}"
             android:textColor="@color/app_black"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
@@ -55,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:lineSpacingExtra="@dimen/_2sdp"
-            android:text="@string/sample_repo_description"
+            android:text="@{repository.description, default=@string/sample_repo_description}"
             android:textColor="@color/mine_shaft"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintEnd_toEndOf="@id/repo_name"
@@ -69,7 +78,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:background="@drawable/bg_circle"
-            android:backgroundTint="#3572A5"
+            android:backgroundTint="@{Color.parseColor(repository.languageColor), default=@color/shark}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/repo_description"
             app:layout_constraintTop_toBottomOf="@id/repo_description" />
@@ -79,14 +88,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/sample_language"
+            android:text="@{repository.language, default=@string/sample_language}"
             android:textColor="@color/manatee"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="@id/language_color"
             app:layout_constraintEnd_toStartOf="@id/star_icon"
-            android:layout_marginEnd="@dimen/_4sdp"
             app:layout_constraintStart_toEndOf="@id/language_color"
             app:layout_constraintTop_toTopOf="@id/language_color" />
 
@@ -104,7 +113,7 @@
             android:id="@+id/star_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sample_start_count"
+            android:text="@{`` + repository.stars, default=@string/sample_start_count}"
             android:textColor="@color/manatee"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintBaseline_toBaselineOf="@id/language"
