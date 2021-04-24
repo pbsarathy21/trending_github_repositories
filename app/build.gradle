@@ -17,7 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'BASE_URL', "\"http://base_url_here/\""
+        buildConfigField 'String', 'BASE_URL', "\"https://private-e3ef0f-githubtrendingapi.apiary-mock.com/\""
     }
 
     buildFeatures {

@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pbsarathy21.trendingrepos.R
 import com.pbsarathy21.trendingrepos.databinding.ActivityTrendingRepoBinding
+import com.pbsarathy21.trendingrepos.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class TrendingRepoActivity : AppCompatActivity() {
@@ -27,9 +30,20 @@ class TrendingRepoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTrendingRepoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         binding.repoList.hasFixedSize()
         binding.repoList.layoutManager = LinearLayoutManager(this)
         binding.repoList.addItemDecoration(itemDecoration)
-        setContentView(binding.root)
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.eventHandler.collect {
+                when(it) {
+                    is TrendingRepoViewModel.EventHandler.ErrorEvent -> toast(it.message)
+                    is TrendingRepoViewModel.EventHandler.StartLoading -> TODO()
+                    is TrendingRepoViewModel.EventHandler.StopLoading -> TODO()
+                    is TrendingRepoViewModel.EventHandler.UpdateRepositories -> {}
+                }
+            }
+        }
     }
 }
