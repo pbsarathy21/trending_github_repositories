@@ -15,5 +15,6 @@
     <color name="app_black">#050505</color>
     <color name="scarpa_flow">#525560</color>
     <color name="manatee">#9194A1</color>
+    <color name="light_gray">#eeeeee</color>
 
 </resources>
