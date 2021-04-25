@@ -19,6 +19,8 @@ class TrendingRepoActivity : AppCompatActivity() {
     private val viewModel by viewModels<TrendingRepoViewModel>()
     private lateinit var binding: ActivityTrendingRepoBinding
 
+    private val repositoryAdapter by lazy { RepositoryAdapter() }
+
     private val itemDecoration by lazy {
         DividerItemDecoration(this, DividerItemDecoration.VERTICAL).also {
             ContextCompat.getDrawable(this, R.drawable.divider)?.let { it1 ->
@@ -33,15 +35,18 @@ class TrendingRepoActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.repoList.hasFixedSize()
         binding.repoList.layoutManager = LinearLayoutManager(this)
+        binding.repoList.adapter = repositoryAdapter
         binding.repoList.addItemDecoration(itemDecoration)
 
         lifecycleScope.launchWhenResumed {
             viewModel.eventHandler.collect {
-                when(it) {
+                when (it) {
                     is TrendingRepoViewModel.EventHandler.ErrorEvent -> toast(it.message)
                     is TrendingRepoViewModel.EventHandler.StartLoading -> TODO()
                     is TrendingRepoViewModel.EventHandler.StopLoading -> TODO()
-                    is TrendingRepoViewModel.EventHandler.UpdateRepositories -> {}
+                    is TrendingRepoViewModel.EventHandler.UpdateRepositories -> repositoryAdapter.updateRepositories(
+                        it.repositories
+                    )
                 }
             }
         }
