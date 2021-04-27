@@ -29,7 +29,7 @@ class RepositoryAdapter : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewH
     }
 
     override fun onBindViewHolder(holder: RepositoryViewHolder, position: Int) {
-        holder.binding.repository = repositories[0]
+        holder.binding.repository = repositories[position]
     }
 
     override fun getItemCount(): Int {

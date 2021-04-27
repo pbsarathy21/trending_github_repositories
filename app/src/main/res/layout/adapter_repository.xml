@@ -13,15 +13,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/_4sdp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/avatar"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:src="@{repository.avatar, default=@drawable/sqaure}"
+            android:src="@drawable/sqaure"
+            app:imageUrl="@{repository.avatar}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +55,7 @@
             android:singleLine="true"
             android:text="@{repository.name, default=@string/sample_repo_name}"
             android:textColor="@color/app_black"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/avatar"
@@ -66,15 +69,15 @@
             android:lineSpacingExtra="@dimen/_2sdp"
             android:text="@{repository.description, default=@string/sample_repo_description}"
             android:textColor="@color/mine_shaft"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="@id/repo_name"
             app:layout_constraintStart_toStartOf="@id/repo_name"
             app:layout_constraintTop_toBottomOf="@id/repo_name" />
 
         <View
             android:id="@+id/language_color"
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:background="@drawable/bg_circle"
@@ -93,7 +96,7 @@
             android:singleLine="true"
             android:text="@{repository.language, default=@string/sample_language}"
             android:textColor="@color/manatee"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintBottom_toBottomOf="@id/language_color"
             app:layout_constraintEnd_toStartOf="@id/star_icon"
             app:layout_constraintStart_toEndOf="@id/language_color"
@@ -101,8 +104,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/star_icon"
-            android:layout_width="@dimen/_16sdp"
-            android:layout_height="@dimen/_16sdp"
+            android:layout_width="@dimen/_14sdp"
+            android:layout_height="@dimen/_14sdp"
             android:layout_marginEnd="@dimen/_6sdp"
             app:layout_constraintBottom_toBottomOf="@id/star_count"
             app:layout_constraintEnd_toStartOf="@id/star_count"
@@ -115,7 +118,7 @@
             android:layout_height="wrap_content"
             android:text="@{`` + repository.stars, default=@string/sample_start_count}"
             android:textColor="@color/manatee"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintBaseline_toBaselineOf="@id/language"
             app:layout_constraintEnd_toEndOf="@id/repo_description" />
 

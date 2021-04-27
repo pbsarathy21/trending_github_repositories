@@ -1,9 +1,11 @@
 package com.pbsarathy21.trendingrepos.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,13 +44,20 @@ class TrendingRepoActivity : AppCompatActivity() {
             viewModel.eventHandler.collect {
                 when (it) {
                     is TrendingRepoViewModel.EventHandler.ErrorEvent -> toast(it.message)
-                    is TrendingRepoViewModel.EventHandler.StartLoading -> TODO()
-                    is TrendingRepoViewModel.EventHandler.StopLoading -> TODO()
+                    is TrendingRepoViewModel.EventHandler.StartLoading -> binding.progress.isVisible =
+                        true
+                    is TrendingRepoViewModel.EventHandler.StopLoading -> binding.progress.isVisible =
+                        false
                     is TrendingRepoViewModel.EventHandler.UpdateRepositories -> repositoryAdapter.updateRepositories(
                         it.repositories
                     )
                 }
             }
+        }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.isRefreshing = false
+            viewModel.getTrendingRepositories()
         }
     }
 }

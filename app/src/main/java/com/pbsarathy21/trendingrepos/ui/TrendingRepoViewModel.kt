@@ -42,7 +42,7 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
         viewModelScope.launch(Dispatchers.Default + exceptionHandler) { _eventHandler.send(event) }
     }
 
-    private fun getTrendingRepositories() =
+    fun getTrendingRepositories() =
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             triggerEvent(StartLoading)
             repo.getTrendingRepositories().apply { triggerEvent(UpdateRepositories(this)) }
