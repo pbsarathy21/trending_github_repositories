@@ -2,6 +2,7 @@ package com.pbsarathy21.trendingrepos.ui
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsetsController
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -33,6 +34,18 @@ class TrendingRepoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        when {
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R -> {
+                window.decorView.windowInsetsController?.setSystemBarsAppearance(
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                )
+            }
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M -> {
+                @Suppress("DEPRECATION")
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+        }
         binding = ActivityTrendingRepoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.repoList.hasFixedSize()
