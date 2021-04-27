@@ -61,10 +61,13 @@ class TrendingRepoActivity : AppCompatActivity() {
                         true
                     is TrendingRepoViewModel.EventHandler.StopLoading -> binding.progress.isVisible =
                         false
-                    is TrendingRepoViewModel.EventHandler.UpdateRepositories -> repositoryAdapter.updateRepositories(
-                        it.repositories
-                    )
                 }
+            }
+        }
+
+        lifecycleScope.launchWhenResumed {
+            viewModel.repositories.collect {
+                repositoryAdapter.updateRepositories(it)
             }
         }
 

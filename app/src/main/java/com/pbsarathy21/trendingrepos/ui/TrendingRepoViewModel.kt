@@ -24,6 +24,8 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
         Timber.e(throwable)
     }
 
+    val repositories = repo.repositories
+
     private val _eventHandler = Channel<EventHandler>()
     val eventHandler = _eventHandler.receiveAsFlow()
 
@@ -32,7 +34,6 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
     }
 
     sealed class EventHandler {
-        data class UpdateRepositories(val repositories: List<Repository>) : EventHandler()
         data class ErrorEvent(val message: String?) : EventHandler()
         object StartLoading : EventHandler()
         object StopLoading : EventHandler()
@@ -45,7 +46,7 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
     fun getTrendingRepositories() =
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             triggerEvent(StartLoading)
-            repo.getTrendingRepositories().apply { triggerEvent(UpdateRepositories(this)) }
+            repo.getTrendingRepositories()
             triggerEvent(StopLoading)
         }
 }

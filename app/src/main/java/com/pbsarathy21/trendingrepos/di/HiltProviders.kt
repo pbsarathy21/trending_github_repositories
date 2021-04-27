@@ -3,6 +3,7 @@ package com.pbsarathy21.trendingrepos.di
 import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.pbsarathy21.trendingrepos.BuildConfig
+import com.pbsarathy21.trendingrepos.data.database.TrendingRepoDatabase
 import com.pbsarathy21.trendingrepos.network.APIService
 import com.pbsarathy21.trendingrepos.network.NetworkConnectionInterceptor
 import dagger.Module
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DaggerProviders {
+object HiltProviders {
 
     @Provides
     fun provideBaseURL() = BuildConfig.BASE_URL
@@ -29,6 +30,14 @@ object DaggerProviders {
     fun provideNetworkConnectionInterceptor(@ApplicationContext context: Context): NetworkConnectionInterceptor {
         return NetworkConnectionInterceptor(context)
     }
+
+    @Singleton
+    @Provides
+    fun provideDatabaseInstance(@ApplicationContext context: Context) =
+        TrendingRepoDatabase.getDatabase(context)
+
+    @Provides
+    fun provideRepositoryDao(database: TrendingRepoDatabase) = database.repositoryDao()
 
     @Singleton
     @Provides
