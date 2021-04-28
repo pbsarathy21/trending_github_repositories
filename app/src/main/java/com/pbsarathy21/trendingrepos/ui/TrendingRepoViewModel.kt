@@ -1,5 +1,6 @@
 package com.pbsarathy21.trendingrepos.ui
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pbsarathy21.trendingrepos.data.repos.TrendingRepository
@@ -17,9 +18,19 @@ import javax.inject.Inject
 class TrendingRepoViewModel @Inject constructor(private val repo: TrendingRepository) :
     ViewModel() {
 
+    // ui attributes
+
+    val isSearchEnabled = ObservableField(false)
+    val isSearchIconVisible = ObservableField(true)
+    val searchQuery = ObservableField<String>()
+    val errorState = ObservableField(false)
+    val errorText = ObservableField<String>()
+
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
-        triggerEvent(ErrorEvent(throwable.message))
         triggerEvent(StopLoading)
+        errorState.set(true)
+        isSearchIconVisible.set(false)
+        errorText.set(throwable.message)
         Timber.e(throwable)
     }
 
@@ -28,12 +39,7 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
     private val _eventHandler = Channel<EventHandler>()
     val eventHandler = _eventHandler.receiveAsFlow()
 
-    init {
-        getTrendingRepositories()
-    }
-
     sealed class EventHandler {
-        data class ErrorEvent(val message: String?) : EventHandler()
         object StartLoading : EventHandler()
         object StopLoading : EventHandler()
     }
@@ -44,6 +50,7 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
 
     fun getTrendingRepositories() =
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+            errorState.set(false)
             triggerEvent(StartLoading)
             repo.getTrendingRepositories()
             triggerEvent(StopLoading)

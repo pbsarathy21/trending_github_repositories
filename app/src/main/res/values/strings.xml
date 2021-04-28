@@ -7,4 +7,6 @@
     <string name="sample_language">Python</string>
     <string name="sample_start_count">757</string>
     <string name="search_repositories">Search Repositories</string>
+    <string name="no_network_connection">No network connection</string>
+    <string name="try_again">TRY AGAIN</string>
 </resources>
