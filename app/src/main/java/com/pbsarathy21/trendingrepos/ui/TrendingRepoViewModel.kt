@@ -1,5 +1,6 @@
 package com.pbsarathy21.trendingrepos.ui
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

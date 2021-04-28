@@ -63,6 +63,7 @@
                         android:layout_marginEnd="@dimen/_4sdp"
                         android:hint="@string/search_repositories"
                         android:inputType="text"
+                        android:focusableInTouchMode="true"
                         android:maxLength="50"
                         android:text="@={viewModel.searchQuery}"
                         android:textColor="@color/shark"
