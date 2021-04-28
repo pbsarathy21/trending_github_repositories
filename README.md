@@ -10,4 +10,4 @@ The following technologies and libraries were used to create this app,
 <strong>Dependency Injector :</strong> Dagger-Hilt<br>
 <strong>REST Client :</strong> Retrofit<br>
 <strong>Image Processing :</strong> Glide<br>
-<strong>Local Database :</strong> Sqlite Room Persistance Library as abstract layer<br>
+<strong>Local Database :</strong> SQLite with Room Persistence Library as abstract layer<br>

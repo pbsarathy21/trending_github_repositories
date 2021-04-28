@@ -107,6 +107,7 @@ class TrendingRepoActivity : AppCompatActivity() {
     private fun enableSearchView() {
         viewModel.isSearchEnabled.set(true)
         viewModel.isSearchIconVisible.set(false)
+        binding.searchQueryEditText.performClick()
         binding.searchQueryEditText.requestFocus()
     }
 
