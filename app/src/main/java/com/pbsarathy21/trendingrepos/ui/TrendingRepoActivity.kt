@@ -7,11 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.databinding.ObservableField
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pbsarathy21.trendingrepos.R
 import com.pbsarathy21.trendingrepos.databinding.ActivityTrendingRepoBinding
+import com.pbsarathy21.trendingrepos.utils.hideKeyboard
 import com.pbsarathy21.trendingrepos.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -32,6 +34,9 @@ class TrendingRepoActivity : AppCompatActivity() {
         }
     }
 
+    val isSearchEnabled = ObservableField(false)
+    val searchQuery = ObservableField<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         when {
@@ -47,11 +52,17 @@ class TrendingRepoActivity : AppCompatActivity() {
             }
         }
         binding = ActivityTrendingRepoBinding.inflate(layoutInflater)
+        binding.activity = this
         setContentView(binding.root)
         binding.repoList.hasFixedSize()
         binding.repoList.layoutManager = LinearLayoutManager(this)
         binding.repoList.adapter = repositoryAdapter
         binding.repoList.addItemDecoration(itemDecoration)
+
+        binding.appHeader.setOnClickListener { enableSearchView() }
+        binding.searchIcon.setOnClickListener { enableSearchView() }
+        binding.backArrowIcon.setOnClickListener { disableSearchView() }
+        binding.closeIcon.setOnClickListener { clearSearchQuery() }
 
         lifecycleScope.launchWhenResumed {
             viewModel.eventHandler.collect {
@@ -75,5 +86,20 @@ class TrendingRepoActivity : AppCompatActivity() {
             binding.swipeRefreshLayout.isRefreshing = false
             viewModel.getTrendingRepositories()
         }
+    }
+
+    private fun enableSearchView() {
+        isSearchEnabled.set(true)
+        binding.searchQueryEditText.requestFocus()
+    }
+
+    private fun disableSearchView() {
+        isSearchEnabled.set(false)
+        binding.searchQueryEditText.clearFocus()
+        hideKeyboard()
+    }
+
+    private fun clearSearchQuery() {
+        searchQuery.set("")
     }
 }

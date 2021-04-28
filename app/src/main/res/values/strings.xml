@@ -6,4 +6,5 @@
     <string name="sample_repo_description">A Swift and Kotlin library for making composable state machines, and UIs driven by those state machines</string>
     <string name="sample_language">Python</string>
     <string name="sample_start_count">757</string>
+    <string name="search_repositories">Search Repositories</string>
 </resources>

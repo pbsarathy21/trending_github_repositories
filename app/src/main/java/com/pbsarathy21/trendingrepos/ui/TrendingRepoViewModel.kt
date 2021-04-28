@@ -2,7 +2,6 @@ package com.pbsarathy21.trendingrepos.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pbsarathy21.trendingrepos.data.models.Repository
 import com.pbsarathy21.trendingrepos.data.repos.TrendingRepository
 import com.pbsarathy21.trendingrepos.ui.TrendingRepoViewModel.EventHandler.*
 import dagger.hilt.android.lifecycle.HiltViewModel
