@@ -15,4 +15,7 @@ interface RepositoryDao {
 
     @get:Query("select * from repositories")
     val repositories: Flow<List<Repository>>
+
+    @Query("select * from repositories where name like :filterText")
+    fun filterRepositories(filterText: String): List<Repository>
 }

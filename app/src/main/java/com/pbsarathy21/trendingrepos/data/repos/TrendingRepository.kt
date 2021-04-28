@@ -12,6 +12,8 @@ class TrendingRepository @Inject constructor(
 
     val repositories = repositoryDao.repositories
 
+    fun filterRepositories(filterText: String) = repositoryDao.filterRepositories("${filterText}%")
+
     suspend fun getTrendingRepositories() {
         val repositories = apiRequest { apiService.getTrendingRepositories() }
         repositoryDao.insert(repositories)

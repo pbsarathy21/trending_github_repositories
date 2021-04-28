@@ -7,16 +7,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.ObservableField
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pbsarathy21.trendingrepos.R
+import com.pbsarathy21.trendingrepos.data.models.Repository
 import com.pbsarathy21.trendingrepos.databinding.ActivityTrendingRepoBinding
 import com.pbsarathy21.trendingrepos.utils.hideKeyboard
 import com.pbsarathy21.trendingrepos.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class TrendingRepoActivity : AppCompatActivity() {
@@ -79,6 +83,16 @@ class TrendingRepoActivity : AppCompatActivity() {
         lifecycleScope.launchWhenResumed {
             viewModel.repositories.collect {
                 repositoryAdapter.updateRepositories(it)
+            }
+        }
+
+        binding.searchQueryEditText.doAfterTextChanged {
+            lifecycleScope.launchWhenResumed {
+                val repositories: List<Repository>
+                withContext(Dispatchers.IO) {
+                    repositories = viewModel.filterRepositories(it?.toString() ?: "")
+                }
+                repositoryAdapter.updateRepositories(repositories)
             }
         }
 

@@ -48,4 +48,6 @@ class TrendingRepoViewModel @Inject constructor(private val repo: TrendingReposi
             repo.getTrendingRepositories()
             triggerEvent(StopLoading)
         }
+
+    fun filterRepositories(filterText: String) = repo.filterRepositories(filterText)
 }
