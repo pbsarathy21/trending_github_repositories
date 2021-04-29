@@ -11,12 +11,9 @@ class TrendingRepo : Application() {
     override fun onCreate() {
         super.onCreate()
 
-//        if (BuildConfig.DEBUG) {
-//            Timber.plant(Timber.DebugTree())
-//            Stetho.initializeWithDefaults(this)
-//        }
-
-        Timber.plant(Timber.DebugTree())
-        Stetho.initializeWithDefaults(this)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+            Stetho.initializeWithDefaults(this)
+        }
     }
 }
